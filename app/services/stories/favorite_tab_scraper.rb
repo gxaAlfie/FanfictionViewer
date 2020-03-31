@@ -7,7 +7,7 @@ module Stories
 
     def initialize(params)
       @page_link = params[:link]
-      @page = Nokogiri::HTML(open(params[:link]))
+      @page = Nokogiri::HTML(open(params[:link], read_timeout: 20))
     end
 
     def call
