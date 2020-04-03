@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Story from './story'
 
 export default function StoryList(props) {
-  const { stories, loading, query, previewStory } = props
+  const { stories, loading, query, previewStory, storyDetails } = props
   const filteredStories = query ? stories.filter((story) => story.title.toLowerCase().includes(query.toLowerCase())) : stories
 
   if (loading) {
@@ -23,7 +23,7 @@ export default function StoryList(props) {
         const { id, chapters } = story
 
         return (
-          <Story key={`story-${id}`} story={story} previewStory={(() => previewStory({ id, chapters }))}/>
+          <Story key={`story-${id}`} story={story} previewStory={(() => previewStory({ id, chapters }))} previewing={id === (storyDetails['story'] || {}).id}/>
         )
       })}
     </div>

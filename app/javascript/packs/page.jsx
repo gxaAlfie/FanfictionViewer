@@ -20,11 +20,11 @@ export default function MainPage() {
     <Fragment>
       <div className='columns is-marginless'>
         <div className='column is-one-third is-paddingless'>
-          <StoryTab previewStory={previewStory}/>
+          <StoryTab previewStory={previewStory} storyDetails={storyDetails}/>
           { false && <StoryPanel previewStory={previewStory}/> }
         </div>
         <div className='column is-paddingless'>
-          <StoryPreview chapterLoading={chapterLoading} storyDetails={storyDetails}/>
+          <StoryPreview chapterLoading={chapterLoading} storyDetails={storyDetails} previewStory={previewStory}/>
         </div>
       </div>
     </Fragment>

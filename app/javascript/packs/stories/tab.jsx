@@ -24,6 +24,8 @@ export default function StoryTab(props) {
     return currentTab === tab
   }
 
+  const { previewStory, storyDetails } = props
+
   return (
     <div className='story__tab-container'>
       <p className='story__tab-title is-size-5 has-text-white has-background-primary'><i className='fas fa-book'/> Stories</p>
@@ -40,7 +42,7 @@ export default function StoryTab(props) {
       <div className='tab-content'>
         <SearchBar query={query} setQuery={setQuery} />
         <Loading loading={loading}/>
-        <StoryList stories={stories} loading={loading} query={query} previewStory={props.previewStory}/>
+        <StoryList stories={stories} loading={loading} query={query} previewStory={previewStory} storyDetails={storyDetails}/>
       </div>
     </div>
   )

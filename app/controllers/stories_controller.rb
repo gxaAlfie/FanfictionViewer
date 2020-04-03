@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    story_text = Stories::ChapterContentScraper.call(params)
-    render json: { chapter_text: story_text }
+    story_content = Stories::ChapterContentScraper.call(params)
+    render json: story_content
   end
 end
