@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
 export default function StoryHeader(props) {
-  const { storyDetails, loading } = props
+  const { storyDetails, storyLoading , setDisplaySidebar, displaySidebar } = props
   const { chapter = 1, story = {} } = storyDetails
 
   if (!story.title) {
@@ -12,7 +12,7 @@ export default function StoryHeader(props) {
     const { previewStory, storyDetails } = props
     const { story = {} } = storyDetails
     const selectedChapter = Number(event.target.value)
-    previewStory({ id: story.id, chapters: selectedChapter })
+    previewStory({ id: story.id, chapters: selectedChapter, loading: 'chapter' })
   }
 
   function chapterSelection() {
@@ -36,10 +36,19 @@ export default function StoryHeader(props) {
     )
   }
 
+  if (storyLoading) {
+    return null
+  }
+
   return (
     <nav className='navbar story__header' role='navigation'>
       <div className="navbar-brand">
-        <span className='navbar-item has-text-weight-bold is-size-4'>{story.title}</span>
+        <span className='navbar-item has-text-weight-bold is-size-4'>
+          <a onClick={() => setDisplaySidebar(!displaySidebar)}>
+            <i className='fas fa-bars'/>&nbsp;
+          </a>
+          {story.title}
+        </span>
       </div>
       <div className='navbar-end'>
         {chapterSelection()}

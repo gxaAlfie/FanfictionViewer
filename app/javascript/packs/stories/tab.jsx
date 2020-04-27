@@ -24,25 +24,31 @@ export default function StoryTab(props) {
     return currentTab === tab
   }
 
-  const { previewStory, storyDetails } = props
+  const { previewStory, storyDetails, displaySidebar } = props
 
   return (
-    <div className='story__tab-container'>
-      <p className='story__tab-title is-size-5 has-text-white has-background-primary'><i className='fas fa-book'/> Stories</p>
-      <div className='tabs is-fullwidth'>
-        <ul>
-          <li className={`${isCurrentTab('recent') ? 'is-active' : ''}`}>
-            <a onClick={() => setCurrentTab('recent')}>Recent Updates</a>
-          </li>
-          <li className={`${isCurrentTab('all') ? 'is-active' : ''}`}>
-            <a onClick={() => setCurrentTab('all')}>Favorites</a>
-          </li>
-        </ul>
-      </div>
-      <div className='tab-content'>
-        <SearchBar query={query} setQuery={setQuery} />
-        <Loading loading={loading}/>
-        <StoryList stories={stories} loading={loading} query={query} previewStory={previewStory} storyDetails={storyDetails}/>
+    <div className={`sidebar column is-one-third is-paddingless ${displaySidebar ? '' : 'hidden'}`}>
+      <div className='story__tab-container'>
+        <p className='story__tab-title is-size-5 has-text-white has-background-primary'><i className='fas fa-book'/> Stories</p>
+        <div className='tabs is-fullwidth'>
+          <ul>
+            <li className={`${isCurrentTab('recent') ? 'is-active' : ''}`}>
+              <a onClick={() => setCurrentTab('recent')}>
+                <i className='fas fa-clock'/>&nbsp;&nbsp;Recent Updates
+              </a>
+            </li>
+            <li className={`${isCurrentTab('all') ? 'is-active' : ''}`}>
+              <a onClick={() => setCurrentTab('all')}>
+                <i className='fas fa-heart'/>&nbsp;&nbsp;Favorites
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className='tab-content'>
+          <SearchBar query={query} setQuery={setQuery} loading={loading}/>
+          <Loading loading={loading}/>
+          <StoryList stories={stories} loading={loading} query={query} previewStory={previewStory} storyDetails={storyDetails}/>
+        </div>
       </div>
     </div>
   )

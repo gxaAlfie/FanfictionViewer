@@ -23,7 +23,7 @@ export default function StoryList(props) {
         const { id, chapters } = story
 
         return (
-          <Story key={`story-${id}`} story={story} previewStory={(() => previewStory({ id, chapters }))} previewing={id === (storyDetails['story'] || {}).id}/>
+          <Story key={`story-${id}`} story={story} previewStory={(() => previewStory({ id, chapters, loading: 'story' }))} previewing={id === (storyDetails['story'] || {}).id}/>
         )
       })}
     </div>

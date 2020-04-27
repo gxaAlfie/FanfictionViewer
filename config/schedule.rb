@@ -1,3 +1,3 @@
 every 1.hour do
-  command 'heroku run rake db:seed'
+  command 'bundle exec rake db:seed'
 end

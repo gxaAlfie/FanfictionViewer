@@ -7,3 +7,23 @@ body {
   margin-right: 20px;
   margin-top: 20px;
 }
+
+.popover > .popover-content {
+  width: 400px;
+}
+
+.popover:not(.is-popover-active):hover .popover-content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.sidebar {
+  width: 33.3333%;
+  opacity: 1;
+  transition: width 100ms, opacity 100ms ease-in-out;
+
+  &.hidden {
+    width: 0;
+    opacity: 0;
+  }
+}
