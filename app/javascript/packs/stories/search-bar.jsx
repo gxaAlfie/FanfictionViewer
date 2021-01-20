@@ -1,13 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import bulmaCalendar from 'bulma-calendar'
 
-export default function SearchBar(props) {
+const SearchBar = (props) => {
   useEffect(() => {
     bulmaCalendar.attach('[type="date"]', { showHeader: false, showFooter: false })
   }, [])
 
   const [isOpen, setIsOpen] = useState(false)
-
   const { query, setQuery, loading } = props
   const disabled = loading || isOpen
 
@@ -55,3 +54,5 @@ export default function SearchBar(props) {
     </Fragment>
   )
 }
+
+export default React.memo(SearchBar)

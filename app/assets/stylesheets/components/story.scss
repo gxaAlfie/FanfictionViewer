@@ -21,10 +21,14 @@
     height: 91vh;
   }
 
+  &__pagination {
+    margin-top: 20px;
+  }
+
   &__list {
     margin-top: 20px;
     overflow: auto;
-    height: 75vh;
+    height: 65vh;
 
     &-placeholder {
       justify-content: center;
@@ -34,10 +38,11 @@
     }
 
     &--empty {
+      margin-top: 20px;
       justify-content: center;
       align-items: center;
       display: flex;
-      height: 70vh;
+      height: 65vh;
     }
   }
 

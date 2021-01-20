@@ -18,12 +18,29 @@ body {
 }
 
 .sidebar {
-  width: 33.3333%;
-  opacity: 1;
-  transition: width 100ms, opacity 100ms ease-in-out;
+  transition: flex 0.3s ease-in-out;
+
+  .tab-content {
+    transition: opacity 0.1s ease-in-out 0.2s;
+    opacity: 1;
+  }
+
+  overflow: hidden;
+  flex: 0.5;
 
   &.hidden {
-    width: 0;
-    opacity: 0;
+    transition: flex 0.3s ease-in-out 0.1s;
+    flex: 0.0001;
+
+    .tab-content {
+      opacity: 0;
+      transition: opacity 0.1s ease-in-out;
+    }
+  }
+
+  &.no-pagination {
+    .story__list {
+      height: 70vh;
+    }
   }
 }

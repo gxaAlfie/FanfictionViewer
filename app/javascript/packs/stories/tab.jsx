@@ -1,9 +1,21 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import StoryList from './list'
-import Loading from '../shared/loading'
 import SearchBar from './search-bar'
+import Pagination from './pagination'
 
-export default function StoryTab(props) {
+const propsChange = (prevProps, nextProps) => {
+  const oldSelectedStory = (prevProps.storyDetails.story || {}).id
+  const newSelectedStory = (nextProps.storyDetails.story || {}).id
+
+  if (prevProps.displaySidebar === nextProps.displaySidebar && oldSelectedStory === newSelectedStory) {
+    return true
+  }
+
+  return false
+}
+
+const StoryTab = (props) => {
+  const [paginationMetadata, setPaginationMetadata] = useState('')
   const [loading, setLoading] = useState(false)
   const [stories, setStories] = useState([])
   const [query, setQuery] = useState('')
@@ -11,11 +23,16 @@ export default function StoryTab(props) {
 
   useEffect(fetchStories, [currentTab])
 
-  function fetchStories() {
+  function fetchStories(page = 1) {
     new Promise((resolve, _reject) => resolve(setLoading(true))).then(
-      fetch(`/stories/search/${currentTab}`)
+      fetch(`/stories/search/${currentTab}?page=${page}`)
         .then((response) => response.json())
-        .then(setStories)
+        .then((data) => {
+          const { stories, pagination } = data
+
+          setStories(stories)
+          setPaginationMetadata(pagination)
+        })
         .then(() => setLoading(false))
     ).catch((error) => console.log(error))
   }
@@ -27,7 +44,7 @@ export default function StoryTab(props) {
   const { previewStory, storyDetails, displaySidebar } = props
 
   return (
-    <div className={`sidebar column is-one-third is-paddingless ${displaySidebar ? '' : 'hidden'}`}>
+    <div className={`sidebar column is-paddingless ${displaySidebar ? '' : 'hidden'} ${paginationMetadata.count <= 20 ? 'no-pagination' : ''}`}>
       <div className='story__tab-container'>
         <p className='story__tab-title is-size-5 has-text-white has-background-primary'><i className='fas fa-book'/> Stories</p>
         <div className='tabs is-fullwidth'>
@@ -46,10 +63,12 @@ export default function StoryTab(props) {
         </div>
         <div className='tab-content'>
           <SearchBar query={query} setQuery={setQuery} loading={loading}/>
-          <Loading loading={loading}/>
-          <StoryList stories={stories} loading={loading} query={query} previewStory={previewStory} storyDetails={storyDetails}/>
+          <StoryList stories={stories} loading={loading} query={query} previewStory={previewStory} storyDetails={storyDetails} paginationMetadata={paginationMetadata}/>
+          <Pagination paginationMetadata={paginationMetadata} fetchStories={fetchStories}/>
         </div>
       </div>
     </div>
   )
 }
+
+export default React.memo(StoryTab, propsChange)

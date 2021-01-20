@@ -14,6 +14,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim', '~> 4.0.1'
 gem 'activerecord-import', '~> 1.0.4'
 gem 'whenever', '~> 1.0.0', require: false
+gem 'pagy', '~> 3.8.2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

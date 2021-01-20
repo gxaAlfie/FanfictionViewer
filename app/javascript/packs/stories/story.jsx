@@ -1,7 +1,15 @@
 import React from 'react'
 import moment from 'moment'
 
-export default function Story(props) {
+const propsChange = (prevProps, nextProps) => {
+  if (prevProps.story.id === nextProps.story.id && prevProps.previewing === nextProps.previewing) {
+    return true
+  }
+
+  return false
+}
+
+const Story = (props) => {
   const { story, previewStory, previewing } = props
   const { id, title, summary, last_updated_at, chapters, story_id } = story
 
@@ -36,3 +44,5 @@ export default function Story(props) {
     </a>
   )
 }
+
+export default React.memo(Story, propsChange)

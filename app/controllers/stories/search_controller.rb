@@ -7,7 +7,12 @@ module Stories
         stories = stories.where('last_updated_at >= :date', date: Date.yesterday.beginning_of_day)
       end
 
-      render json: stories, status: :ok
+      pagination, stories = pagy(stories)
+
+      render json: {
+        stories: stories,
+        pagination: pagy_metadata(pagination)
+      }, status: :ok
     end
   end
 end
